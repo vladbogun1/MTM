@@ -157,7 +157,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
             );
             image.setScaleType(ImageView.ScaleType.FIT_START);
             image.getLayoutParams().height = 500;
-            image.getLayoutParams().width = 400;
+            image.getLayoutParams().width = 410;
             LoadImageFromURl(URL, image);
 
             Button button = new Button(context);
