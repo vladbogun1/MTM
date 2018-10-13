@@ -2,12 +2,15 @@ package com.customizer.mtm_full;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -137,7 +140,8 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
         for (int i = 0; i < Array_from_BD.length(); i++) {
             JSONObject rec = Array_from_BD.getJSONObject(i);
             int ID = rec.getInt("ID");
-            String Name = rec.getString("Name");
+            String NAME = rec.getString("Name");
+            String ABOUT = rec.getString("About");
             String URL = (rec.getString("SourcePath")).replace("..","");
             LinearLayout l = new LinearLayout(context);
             l.setId(ID);
@@ -160,17 +164,35 @@ public class BackgroundWorker extends AsyncTask<String, Void, String>{
             image.getLayoutParams().width = 410;
             LoadImageFromURl(URL, image);
 
-            Button button = new Button(context);
-            button.setText(Integer.toString(i)+ " " + URL + " "+Name+" №" + Integer.toString(ID) );
-            button.setLayoutParams(
+            TextView textView = new TextView(context);
+            textView.setText(NAME);
+            textView.setFontFeatureSettings("sans-serif-smallcaps");
+            textView.setTextSize(30);
+            RelativeLayout h = new RelativeLayout(context);
+            h.setLayoutParams(
                     new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.MATCH_PARENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     )
             );
 
+
+            Button button = new Button(context);
+            button.setText("Подробнее");
+            button.setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+            );
+
+
+
+
             l.addView(image);
-            l.addView(button);
+            l.addView(h);
+            h.addView(textView);
+            h.addView(button);
             linearLayout.addView(l);
         }
 
